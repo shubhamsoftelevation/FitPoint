@@ -3,10 +3,18 @@ import {Formik} from 'formik';
 import React, {useState} from 'react';
 import {View} from 'react-native';
 import * as yup from 'yup';
-import {Button, TextInput} from 'react-native-paper';
+import {Button, Text, TextInput} from 'react-native-paper';
 
 const LoginPage = () => {
   const [showPassword, setShowPassword] = useState(true);
+  const errorText = err => {
+    return (
+      <Text
+        style={{fontSize: 14, color: '#DA3D25', marginLeft: 5, marginTop: 5}}>
+        {err}
+      </Text>
+    );
+  };
   return (
     <View
       style={{
@@ -64,6 +72,7 @@ const LoginPage = () => {
                   keyboardType="number-pad"
                   returnKeyType="next"
                 />
+                {touched.first_name ? errorText(errors.first_name) : ''}
                 <TextInput
                   mode="outlined"
                   value={values.last_name}
@@ -77,6 +86,7 @@ const LoginPage = () => {
                   keyboardType="email-address"
                   returnKeyType="next"
                 />
+                {touched.last_name ? errorText(errors.last_name) : ''}
                 <TextInput
                   mode="outlined"
                   value={values.email_id}
@@ -90,6 +100,7 @@ const LoginPage = () => {
                   keyboardType="number-pad"
                   returnKeyType="next"
                 />
+                {touched.email_id ? errorText(errors.email_id) : ''}
                 <TextInput
                   mode="outlined"
                   value={values.password}
